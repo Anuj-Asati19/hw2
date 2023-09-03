@@ -160,8 +160,8 @@ class LitGenericClassifier(pl.LightningModule):
         """
 
         logits = self.model(x)
-        probabilities = nn.functional.relu(logits)
-        predicted_labels = torch.argmax(probabilities)
+        probabilities = nn.functional.softmax(logits, dim=1)
+        predicted_labels = torch.argmax(probabilities, dim=1)
         y_pred = predicted_labels.long() 
         return y_pred
 
@@ -170,9 +170,11 @@ class LitSimpleClassifier(LitGenericClassifier):
         super().__init__(lr=lr)
         self.model = nn.Sequential(
             nn.Linear(2, 64),   
-            nn.ReLU(),          
+            nn.ReLU(),   
+            nn.Dropout(0.3),       
             nn.Linear(64, 128), 
-            nn.ReLU(),                               
+            nn.ReLU(), 
+            nn.Dropout(0.3),                              
             nn.Linear(128,4)
         )
 
@@ -192,10 +194,10 @@ class LitDigitsClassifier(LitGenericClassifier):
         self.model = nn.Sequential(
             nn.Linear(64, 100),   
             nn.ReLU(),
-            nn.Dropout(0.5),      
+            nn.Dropout(0.3),      
             nn.Linear(100, 150), 
             nn.ReLU(),
-            nn.Dropout(0.5),                                     
+            nn.Dropout(0.3),                                     
             nn.Linear(150,10)
         )
     
