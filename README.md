@@ -23,7 +23,7 @@ For "digits" dataset:
 python train.py --dataset digits --model digits --num_epochs <num_epochs> --learning_rate <learning_rate> --seed <seed>
 ```
 
-The default values for each of these parameters are available in [`args.py`](args.py). The `seed` argument is useful if your model uses random initialization (default PyTorch behavior). With a fixed seed, your experiment will be reproducible. You can fix a seed throughout your experiments for best reproducibility. It is possible that a different `seed` will give different result but the differences will mostly be minor so you should focus on choosing better hyperparameters and making a better model.
+The default values for each of these parameters are available in [`args.py`](args.py). The `seed` argument is useful if your model uses random initial~zation (default PyTorch behavior). With a fixed seed, your experiment will be reproducible. You can fix a seed throughout your experiments for best reproducibility. It is possible that a different `seed` will give different result but the differences will mostly be minor so you should focus on choosing better hyperparameters and making a better model.
 
 ## TensorBoard
 This assignment uses PyTorch Lightning which allows us to use a far more sophisticated logger called [`TensorBoard`](https://www.tensorflow.org/tensorboard) developed originally for the TensorFlow framework. To view your training logs, you can go into `checkpoints/` directory and run `tensorboard --logdir ./` to start TensorBoard. You can now view the (live) training progress of all your models by going to `http://localhost:6006` in your browser! You can also download the data from here in a CSV for making plots in your report.

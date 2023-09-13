@@ -160,7 +160,7 @@ class LitGenericClassifier(pl.LightningModule):
         """
 
         logits = self.model(x)
-        probabilities = nn.functional.softmax(logits, dim=1)
+        probabilities = nn.functional.leaky_relu(logits, dim=1)
         predicted_labels = torch.argmax(probabilities, dim=1)
         y_pred = predicted_labels.long() 
         return y_pred
@@ -192,13 +192,13 @@ class LitDigitsClassifier(LitGenericClassifier):
     def __init__(self, lr=0):
         super().__init__(lr=lr)
         self.model = nn.Sequential(
-            nn.Linear(64, 100),   
-            nn.ReLU(),
-            nn.Dropout(0.3),      
-            nn.Linear(100, 150), 
-            nn.ReLU(),
-            nn.Dropout(0.3),                                     
-            nn.Linear(150,10)
+            nn.Linear(64, 110),   
+            nn.LeakyReLU(),
+            nn.Dropout(0.4),      
+            nn.Linear(110, 170), 
+            nn.LeakyReLU(),
+            nn.Dropout(0.4),                                     
+            nn.Linear(170,10)
         )
     
     def transform_input(self, batch):
